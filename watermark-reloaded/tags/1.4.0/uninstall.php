@@ -6,7 +6,7 @@
  * The uninstall hook itself is intentionally no-op to honor the keep-data default.
  *
  * @package   watermark_reloaded
- * @author    Sandi Verdev <sandi.verdev@eappz.eu>
+ * @author    Sandi Verdev <wordpress@eappz.eu>
  * @copyright 2025 eAppz
  */
 

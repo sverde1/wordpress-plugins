@@ -3,7 +3,7 @@
  * Watermark Reloaded admin UI and settings.
  *
  * @package   watermark_reloaded
- * @author    Sandi Verdev <sandi.verdev@eappz.eu>
+ * @author    Sandi Verdev <wordpress@eappz.eu>
  * @copyright 2025 eAppz
  */
 

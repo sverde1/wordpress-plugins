@@ -3,7 +3,7 @@
  * Handles live preview updates and color picker interactions.
  *
  * @package   watermark_reloaded
- * @author    Sandi Verdev <sandi.verdev@eappz.eu>
+ * @author    Sandi Verdev <wordpress@eappz.eu>
  * @copyright 2025 eAppz
  */
 
