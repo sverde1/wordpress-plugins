@@ -2,7 +2,7 @@
 
 ## Project Structure & Module Organization
 - Root contains two WordPress plugins, each with Subversion-style layout: `dashboard-available-disk-space/{trunk,tags,branches}` and `watermark-reloaded/{trunk,tags,branches}`.
-- Active code lives under each `trunk/`. Example: `dashboard-available-disk-space/trunk/dashboard-available-disk-space.php` (dashboard widget) and `watermark-reloaded/trunk/watermark-reloaded.php` plus assets (`fonts/`, `jQueryPlugins/`, `style.css`, `script.js`).
+- Active code lives under each `trunk/`. Example: `dashboard-available-disk-space/trunk/dashboard-available-disk-space.php` (dashboard widget) and `watermark-reloaded/trunk/watermark-reloaded.php` plus assets (`fonts/`, `style.css`, `script.js`; older tags also include `jQueryPlugins/`).
 - `readme.txt` files hold plugin metadata; screenshots sit beside the main plugin files for WordPress.org assets.
 
 ## Build, Test, and Development Commands
