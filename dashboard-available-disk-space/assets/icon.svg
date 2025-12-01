@@ -1,0 +1,38 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <!-- background rounded rectangle -->
+  <rect x="0" y="0" width="256" height="256" rx="28" fill="#1f4b73"/>
+
+  <!-- 3.5" hard drive body (correct aspect ratio ~5.75:4) -->
+  <!-- width = 96, height = 138 => 138/96 ≈ 1.4375 -->
+  <rect x="80" y="50" width="96" height="138" rx="8" fill="#ffffff"/>
+
+  <!-- screw holes -->
+  <circle cx="88" cy="58" r="3" fill="#1f4b73"/>
+  <circle cx="168" cy="58" r="3" fill="#1f4b73"/>
+  <circle cx="88" cy="180" r="3" fill="#1f4b73"/>
+  <circle cx="168" cy="180" r="3" fill="#1f4b73"/>
+
+  <!-- disk platter -->
+  <circle cx="128" cy="98" r="36" fill="none" stroke="#1f4b73" stroke-width="4"/>
+  <circle cx="128" cy="98" r="8" fill="none" stroke="#1f4b73" stroke-width="4"/>
+
+  <!-- read/write arm & needle: rotated +45° CCW from current position -->
+  <path
+    d="M80 108
+       a8 8 0 0 1 0 -16
+       l35 8
+       Z"
+    fill="#ffffff"
+    stroke="#1f4b73"
+    stroke-width="3"
+    transform="rotate(-45 128 98)"
+  />
+
+  <circle cx="95" cy="134" r="3" fill="#1f4b73" stroke="none" stroke-width="4"/>
+
+  <!-- progress bar container (centered under drive) -->
+  <rect x="80" y="200" width="96" height="14" rx="7" fill="#e5e7eb"/>
+
+  <!-- progress fill (about 60px, left-aligned inside container) -->
+  <rect x="80" y="200" width="60" height="14" rx="7" fill="#22c55e"/>
+</svg>

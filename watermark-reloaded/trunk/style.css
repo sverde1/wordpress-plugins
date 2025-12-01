@@ -1,0 +1,58 @@
+/**
+ * Plugin: Watermark RELOADED
+ * File: style.css
+ *
+ * Description:
+ * Main stylesheet for the Watermark RELOADED plugin.
+ *
+ * Table of Contents
+ * 1. Watermark position grid
+ * 2. Typography selectors
+ * 3. Width helpers
+ * 4. Color picker positioning
+ */
+
+.watermark_position td {
+	border: 1px solid #DFDFDF;
+}
+
+select[name="watermark_text[font]"] option {
+	font-size: 14pt;
+}
+
+fieldset.wr_width, .wr_width {
+	width: 260px;
+}
+
+td.wr_width {
+	width: 360px;
+}
+
+.wr_width [name="watermark_text[value]"], .wr_width [name="watermark_text[font]"] {
+	width: 100%;
+}
+
+.wr_width [name="watermark_text[color]"] {
+	width: 65px;
+}
+
+.wr_right {
+	text-align: right;
+}
+
+.form-table, .form-table th.nowidth {
+	width: auto;
+}
+
+/* color picker positioning */
+.watermark_text .wp-picker-container {
+	position: relative;
+}
+
+.watermark_text .wp-picker-container .wp-picker-holder {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	margin-top: 4px;
+	z-index: 9999;
+}

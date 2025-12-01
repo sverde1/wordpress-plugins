@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<ruleset name="Watermark RELOADED">
+    <description>PHPCS rules for the Watermark RELOADED plugin.</description>
+
+    <!-- Use the main WordPress standard (you can swap for WordPress-Extra, etc.) -->
+    <rule ref="WordPress" />
+    <rule ref="WordPress-Core" />
+    <rule ref="WordPress-Docs" />
+    <rule ref="WordPress-Extra" />
+</ruleset>
