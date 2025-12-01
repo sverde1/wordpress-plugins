@@ -23,7 +23,7 @@ class Dashboard_Available_Disk_Space {
 	 */
 	public function __construct() {
 		// Register installer function.
-		register_activation_hook( __FILE__, array( $this, 'activate_dads' ) );
+		register_activation_hook( DADS_LOADER, array( $this, 'activate_dads' ) );
 
 		add_filter( 'plugin_row_meta', array( $this, 'add_plugin_links' ), 10, 2 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
@@ -159,12 +159,12 @@ class Dashboard_Available_Disk_Space {
 		$dir = __DIR__;
 
 		// Check that the dir we are checking is available.
-		if ( ! is_dir( $dir ) ) {
+		if ( ! is_dir( $dir ) || ! $this->is_path_allowed_for_disk_stats( $dir ) ) {
 			return false;
 		}
 
-		$disk_free_space  = disk_free_space( $dir );
-		$disk_total_space = disk_total_space( $dir );
+		$disk_free_space  = function_exists( 'disk_free_space' ) ? disk_free_space( $dir ) : false;
+		$disk_total_space = function_exists( 'disk_total_space' ) ? disk_total_space( $dir ) : false;
 
 		// Check if disk info is available.
 		if ( false === $disk_free_space || false === $disk_total_space || $disk_total_space <= 0 ) {
@@ -184,6 +184,28 @@ class Dashboard_Available_Disk_Space {
 			'free_readable'  => size_format( $disk_free_space, 2 ),
 			'total_readable' => size_format( $disk_total_space, 2 ),
 		);
+	}
+
+	/**
+	 * Ensure disk stat calls are allowed within open_basedir restrictions.
+	 *
+	 * @param string $dir Directory path being checked.
+	 * @return bool True if path is allowed, false otherwise.
+	 */
+	private function is_path_allowed_for_disk_stats( $dir ) {
+		$open_basedir = ini_get( 'open_basedir' );
+		if ( '' === $open_basedir ) {
+			return true;
+		}
+
+		$allowed = array_filter( array_map( 'trim', explode( PATH_SEPARATOR, $open_basedir ) ) );
+		foreach ( $allowed as $path ) {
+			if ( '' !== $path && 0 === strpos( $dir, $path ) ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**

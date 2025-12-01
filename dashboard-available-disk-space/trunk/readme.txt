@@ -94,3 +94,4 @@ Not at the moment. The plugin is designed to keep things simple by integrating d
 = 1.1.1 =
 * Moved dashboard widget styles into a dedicated `style.css` file and enqueue it on the Dashboard for easier maintenance.
 * Improved PHPCS compatibility across the plugin files.
+* Added open_basedir-safe checks before reading disk stats.
