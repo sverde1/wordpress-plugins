@@ -2,10 +2,10 @@
 Contributors: sverde1
 Donate link: https://coindrop.to/sverde1
 Tags: disk space, disk usage, storage, at a glance, dashboard
-Requires PHP: 5.0
+Requires PHP: 5.3
 Requires at least: 3.3
-Tested up to: 6.8.3
-Stable tag: 1.1.0
+Tested up to: 6.9
+Stable tag: 1.1.1
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -90,3 +90,7 @@ Not at the moment. The plugin is designed to keep things simple by integrating d
 * Added capability check for `upload_files` to control who sees the storage information.
 * Added safer escaping, i18n-friendly formatting, and an inline-styled progress bar consistent with current WordPress admin colors.
 * Introduced lightweight admin CSS for the “Available Storage Space” row and cleaner markup with translatable labels.
+
+= 1.1.1 =
+* Moved dashboard widget styles into a dedicated `style.css` file and enqueue it on the Dashboard for easier maintenance.
+* Improved PHPCS compatibility across the plugin files.
