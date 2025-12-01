@@ -10,6 +10,7 @@
   - `ln -s $(pwd)/dashboard-available-disk-space/trunk /path/to/wp-content/plugins/dashboard-available-disk-space`
   - `ln -s $(pwd)/watermark-reloaded/trunk /path/to/wp-content/plugins/watermark-reloaded`
 - Quick syntax check before committing: `find dashboard-available-disk-space/trunk watermark-reloaded/trunk -name '*.php' -print0 | xargs -0 -n1 php -l`.
+- Coding standards: `phpcs --standard=ruleset.xml <plugin dir>/trunk/`.
 - Optional packaging for distribution: `zip -r dist/dashboard-available-disk-space.zip dashboard-available-disk-space/trunk` (same for `watermark-reloaded`).
 
 ## Coding Style & Naming Conventions
