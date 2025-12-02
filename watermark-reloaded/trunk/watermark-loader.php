@@ -17,7 +17,7 @@
  * @copyright 2025 eAppz
  */
 
-define( 'WR_MIN_PHP_VERSION', '5.1' );
+define( 'WR_MIN_PHP_VERSION', '5.3' );
 
 /**
  * Activation hook callback to validate PHP version before enabling the plugin.
@@ -48,6 +48,22 @@ function watermark_reloaded_activate() {
 register_activation_hook( __FILE__, 'watermark_reloaded_activate' );
 
 /**
+ * Load plugin textdomain.
+ *
+ * @return void
+ */
+function watermark_reloaded_load_textdomain() {
+	load_plugin_textdomain(
+		'watermark-reloaded',
+		false,
+		dirname( plugin_basename( __FILE__ ) ) . '/languages/'
+	);
+}
+
+// Use init or plugins_loaded (both are fine, and safe for WP 6.7+).
+add_action( 'init', 'watermark_reloaded_load_textdomain' );
+
+/**
  * Handle WordPress error scraping when PHP version is too low.
  *
  * WordPress calls plugins with ?action=error_scrape when checking for fatal errors.
@@ -56,7 +72,9 @@ register_activation_hook( __FILE__, 'watermark_reloaded_activate' );
  */
 function watermark_reloaded_error_scrape() {
 	if ( version_compare( PHP_VERSION, WR_MIN_PHP_VERSION, '<' ) ) {
-		$action = filter_input( INPUT_GET, 'action', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+		// WordPress core calls this endpoint without a nonce during fatal error scraping.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$action = isset( $_GET['action'] ) ? sanitize_key( wp_unslash( $_GET['action'] ) ) : '';
 		if ( 'error_scrape' === $action ) {
 			$message = sprintf(
 				/* translators: %s: required minimum PHP version number. */
@@ -75,8 +93,7 @@ function watermark_reloaded_error_scrape() {
 	}
 }
 
-watermark_reloaded_error_scrape();
-
+add_action( 'init', 'watermark_reloaded_error_scrape' );
 
 // Load Watermark RELOADED plugin core only in admin.
 if ( is_admin() ) {

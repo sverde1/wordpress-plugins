@@ -1,0 +1,203 @@
+# Copyright (C) 2025 Sandi Verdev
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Watermark RELOADED 1.4.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/watermark-reloaded\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-12-02T09:59:20+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: watermark-reloaded\n"
+
+#. Plugin Name of the plugin
+#: watermark-loader.php
+#: class-watermark-reloaded-admin.php:132
+#: class-watermark-reloaded-admin.php:153
+#: class-watermark-reloaded-admin.php:608
+msgid "Watermark RELOADED"
+msgstr ""
+
+#. Description of the plugin
+#: watermark-loader.php
+msgid "Automatically add text watermarks to WordPress uploads with adjustable fonts, colors, and positions."
+msgstr ""
+
+#. Author of the plugin
+#: watermark-loader.php
+msgid "Sandi Verdev"
+msgstr ""
+
+#. Author URI of the plugin
+#: watermark-loader.php
+msgid "http://eAppz.eu/"
+msgstr ""
+
+#: class-watermark-reloaded-admin.php:99
+#: class-watermark-reloaded-admin.php:171
+msgid "Settings"
+msgstr ""
+
+#: class-watermark-reloaded-admin.php:116
+msgid "Donate"
+msgstr ""
+
+#: class-watermark-reloaded-admin.php:131
+#: class-watermark-reloaded-admin.php:405
+msgid "Watermark Reloaded Settings"
+msgstr ""
+
+#: class-watermark-reloaded-admin.php:175
+msgid "Enabled for"
+msgstr ""
+
+#: class-watermark-reloaded-admin.php:183
+msgid "Positioned at"
+msgstr ""
+
+#: class-watermark-reloaded-admin.php:191
+msgid "Offset"
+msgstr ""
+
+#: class-watermark-reloaded-admin.php:202
+msgid "Change settings"
+msgstr ""
+
+#: class-watermark-reloaded-admin.php:207
+#: class-watermark-reloaded-admin.php:590
+msgid "Preview"
+msgstr ""
+
+#: class-watermark-reloaded-admin.php:225
+msgid "Watermark preview"
+msgstr ""
+
+#. translators: %s: link to the Watermark Reloaded settings page.
+#: class-watermark-reloaded-admin.php:234
+#, php-format
+msgid "Watermark RELOADED is <strong>not enabled</strong>. Go to <a href=\"%s\">settings</a> and enable it now!"
+msgstr ""
+
+#: class-watermark-reloaded-admin.php:262
+#: class-watermark-reloaded-admin.php:436
+msgid "You need a higher level of permission."
+msgstr ""
+
+#: class-watermark-reloaded-admin.php:267
+#: class-watermark-reloaded-admin.php:769
+msgid "Watermark RELOADED requires the PHP extension GD to process images. Please enable GD to configure the plugin."
+msgstr ""
+
+#: class-watermark-reloaded-admin.php:276
+#: class-watermark-reloaded-admin.php:779
+msgid "Text watermarking requires FreeType Library."
+msgstr ""
+
+#. translators: %s: path to the fonts directory.
+#: class-watermark-reloaded-admin.php:375
+#, php-format
+msgid "Some fonts might be unreadable, try chmoding contents of the folder <strong>%s</strong> to writable and refresh this page."
+msgstr ""
+
+#: class-watermark-reloaded-admin.php:455
+msgid "You need a higher level of permission to delete plugin data."
+msgstr ""
+
+#: class-watermark-reloaded-admin.php:463
+msgid "All plugin data has been deleted."
+msgstr ""
+
+#: class-watermark-reloaded-admin.php:479
+msgid "Settings saved."
+msgstr ""
+
+#: class-watermark-reloaded-admin.php:495
+#: class-watermark-reloaded-admin.php:498
+msgid "Enable watermark for"
+msgstr ""
+
+#: class-watermark-reloaded-admin.php:513
+msgid "Check image sizes on which watermark should appear."
+msgstr ""
+
+#: class-watermark-reloaded-admin.php:519
+#: class-watermark-reloaded-admin.php:522
+msgid "Watermark alignment"
+msgstr ""
+
+#: class-watermark-reloaded-admin.php:541
+msgid "Chose where on image watermark should be positioned."
+msgstr ""
+
+#: class-watermark-reloaded-admin.php:548
+#: class-watermark-reloaded-admin.php:551
+msgid "Watermark offset"
+msgstr ""
+
+#: class-watermark-reloaded-admin.php:574
+msgid "Text watermark"
+msgstr ""
+
+#: class-watermark-reloaded-admin.php:575
+msgid "If you chose watermark should be text define how it should look like."
+msgstr ""
+
+#: class-watermark-reloaded-admin.php:581
+#: class-watermark-reloaded-admin.php:584
+msgid "Text color"
+msgstr ""
+
+#: class-watermark-reloaded-admin.php:594
+#: class-watermark-reloaded-admin.php:597
+msgid "Text size"
+msgstr ""
+
+#: class-watermark-reloaded-admin.php:613
+#: class-watermark-reloaded-admin.php:616
+msgid "Font"
+msgstr ""
+
+#: class-watermark-reloaded-admin.php:635
+#: class-watermark-reloaded-admin.php:638
+msgid "Watermark text"
+msgstr ""
+
+#: class-watermark-reloaded-admin.php:650
+msgid "Save Changes"
+msgstr ""
+
+#: class-watermark-reloaded-admin.php:655
+msgid "Delete plugin data"
+msgstr ""
+
+#: class-watermark-reloaded-admin.php:656
+msgid "Remove all Watermark RELOADED settings from this site. This cannot be undone."
+msgstr ""
+
+#: class-watermark-reloaded-admin.php:659
+msgid "Delete all data"
+msgstr ""
+
+#. translators: %s: required minimum PHP version number.
+#: watermark-loader.php:34
+#, php-format
+msgid "Watermark RELOADED requires PHP %s or higher. The plugin has been deactivated."
+msgstr ""
+
+#: watermark-loader.php:40
+msgid "Plugin Activation Error"
+msgstr ""
+
+#. translators: %s: required minimum PHP version number.
+#: watermark-loader.php:81
+#, php-format
+msgid "Sorry, Watermark RELOADED requires PHP %s or higher. Please contact your hosting provider to upgrade PHP."
+msgstr ""
+
+#: watermark-loader.php:87
+msgid "Watermark RELOADED – PHP Version Error"
+msgstr ""

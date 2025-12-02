@@ -71,7 +71,7 @@ class Watermark_Reloaded_Admin extends Watermark_Reloaded {
 		add_action( 'wp_ajax_watermark_preview', array( $this, 'watermark_preview' ) );
 
 		// Add filter for watermarking images.
-		add_filter( 'wp_generate_attachment_metadata', array( $this, 'apply_watermark' ), 10, 2 );
+		add_filter( 'wp_generate_attachment_metadata', array( $this, 'attachment_metadata' ), 10, 2 );
 	}
 
 	/**
@@ -129,7 +129,7 @@ class Watermark_Reloaded_Admin extends Watermark_Reloaded {
 		// Add option in admin menu, for setting details on watermarking.
 		$plugin_page = add_options_page(
 			esc_html__( 'Watermark Reloaded Settings', 'watermark-reloaded' ),
-			esc_html__( 'Watermark Reloaded', 'watermark-reloaded' ),
+			esc_html__( 'Watermark RELOADED', 'watermark-reloaded' ),
 			'manage_options',
 			WR_SETTINGS_PAGE,
 			array( $this, 'options_page' )
@@ -262,14 +262,51 @@ class Watermark_Reloaded_Admin extends Watermark_Reloaded {
 			wp_die( esc_html__( 'You need a higher level of permission.', 'watermark-reloaded' ) );
 		}
 
-		check_admin_referer( 'wr_preview', 'wr_preview_nonce' );
-
-		$watermark_text = filter_input( INPUT_GET, 'watermark_text', FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_REQUIRE_ARRAY );
-		if ( ! empty( $watermark_text ) && is_array( $watermark_text ) ) {
-			$watermark_text = $this->filter_option_value( 'watermark_text', $watermark_text );
+		if ( ! $this->gd_exists() ) {
+			wp_die(
+				esc_html__(
+					'Watermark RELOADED requires the PHP extension GD to process images. Please enable GD to configure the plugin.',
+					'watermark-reloaded'
+				)
+			);
 		}
 
-		$this->create_preview( array( 'watermark_text' => $watermark_text ) );
+		if ( ! $this->has_freetype() ) {
+			wp_die(
+				esc_html__( 'Text watermarking requires FreeType Library.', 'watermark-reloaded' )
+			);
+		}
+
+		check_admin_referer( 'wr_preview', 'wr_preview_nonce' );
+
+		$get            = wp_unslash( $_GET );
+		$watermark_text = ! empty( $get['watermark_text'] ) && is_array( $get['watermark_text'] )
+			? $get['watermark_text']
+			: array();
+
+		$this->create_preview(
+			array(
+				'watermark_text' => $this->sanitize_option_value( 'watermark_text', $watermark_text ),
+			)
+		);
+
+		wp_die();
+	}
+
+	/**
+	 * Process attachment metadata during upload.
+	 *
+	 * @param array $data          Attachment metadata.
+	 * @param int   $attachment_id Attachment ID.
+	 * @return array
+	 */
+	public function attachment_metadata( $data, $attachment_id ) {
+		// If GD doesn't exist don't watermark.
+		if ( ! $this->gd_exists() || ! $this->has_freetype() ) {
+			return $data;
+		}
+
+		return $this->apply_watermark( $data, $attachment_id );
 	}
 
 	/**
@@ -399,8 +436,8 @@ class Watermark_Reloaded_Admin extends Watermark_Reloaded {
 			wp_die( esc_html__( 'You need a higher level of permission.', 'watermark-reloaded' ) );
 		}
 
-		// Collect and sanitize POST payload.
-		$post = filter_input_array( INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+		// Collect raw POST payload (will be sanitized per-field).
+		$post = wp_unslash( $_POST );
 
 		// Check if our form submit button was clicked.
 		$is_save   = isset( $post['submit'] );
@@ -435,7 +472,7 @@ class Watermark_Reloaded_Admin extends Watermark_Reloaded {
 		// Process user input, filter it and update options.
 		foreach ( $this->options as $option => $value ) {
 			if ( isset( $post[ $option ] ) ) {
-				update_option( $option, $this->filter_option_value( $option, $post[ $option ] ) );
+				update_option( $option, $this->sanitize_option_value( $option, $post[ $option ] ) );
 			}
 		}
 
@@ -652,18 +689,26 @@ class Watermark_Reloaded_Admin extends Watermark_Reloaded {
 	 * @param mixed  $value  Raw value.
 	 * @return mixed
 	 */
-	private function filter_option_value( $option, $value ) {
+	private function sanitize_option_value( $option, $value ) {
 		switch ( $option ) {
 			case 'watermark_on':
 				if ( ! is_array( $value ) ) {
 					return $this->get_option( $option );
 				}
 
-				// Filter out any intruding image sizes and make sure value is 1.
-				$filtered = array_intersect_key( $value, $this->image_size_list() );
-				return array_fill_keys( array_keys( $filtered ), 1 );
+				$sanitized     = array();
+				$allowed_sizes = array_keys( $this->image_size_list() );
+				foreach ( $value as $image_size => $enabled ) {
+					// Allow only registered image sizes.
+					if ( in_array( $image_size, $allowed_sizes, true ) ) {
+						$sanitized[ sanitize_key( $image_size ) ] = 1;
+					}
+				}
+
+				return $sanitized;
 
 			case 'watermark_position':
+				$value     = sanitize_key( $value );
 				$positions = explode( '_', $value );
 
 				return count( $positions ) === 2 &&
@@ -677,21 +722,35 @@ class Watermark_Reloaded_Admin extends Watermark_Reloaded {
 					return $this->get_option( $option );
 				}
 
-				// Allow only x and y axis.
-				$filtered = array_intersect_key( $value, array_flip( array_keys( $this->watermark_positions ) ) );
+				$offset   = array();
+				$defaults = $this->get_option( $option );
+				foreach ( array( 'x', 'y' ) as $axis ) {
+					$offset[ $axis ] = isset( $value[ $axis ] ) ? absint( $value[ $axis ] ) : $defaults[ $axis ];
+				}
 
-				return array_map( 'intval', $filtered );
+				return $offset;
 
 			case 'watermark_text':
 				$defaults = $this->get_option( $option );
 
+				// Ensure font whitelist is populated.
+				if ( empty( $this->fonts ) ) {
+					$this->get_fonts();
+				}
+
+				// Font field validation.
+				$font = isset( $value['font'] ) ? sanitize_file_name( $value['font'] ) : $defaults['font'];
+				$font = array_key_exists( $font, $this->fonts ) ? $font : $defaults['font'];
+
+				// Color field validation.
+				$color = isset( $value['color'] ) ? sanitize_hex_color_no_hash( $value['color'] ) : $defaults['color'];
+				$color = null !== $color && strlen( $color ) === 6 ? $color : $defaults['color'];
+
 				return array(
 					'value' => isset( $value['value'] ) ? sanitize_text_field( $value['value'] ) : $defaults['value'],
-					'font'  => isset( $value['font'] ) ? sanitize_file_name( $value['font'] ) : $defaults['font'],
-					'size'  => isset( $value['size'] ) ? intval( $value['size'] ) : $defaults['size'],
-					'color' => isset( $value['color'] ) && preg_match( '/^\#[a-f0-9]{6}$/si', $value['color'] )
-						? str_replace( '#', '', $value['color'] )
-						: $defaults['color'],
+					'size'  => isset( $value['size'] ) ? absint( $value['size'] ) : $defaults['size'],
+					'font'  => $font,
+					'color' => $color,
 				);
 
 			default:
@@ -715,8 +774,7 @@ class Watermark_Reloaded_Admin extends Watermark_Reloaded {
 			return false;
 		}
 
-		$gd_info = gd_info();
-		if ( ! $gd_info['FreeType Support'] ) {
+		if ( ! $this->has_freetype() ) {
 			$this->missing_dependencies[] = 'freetype';
 			$this->messages['error'][]    = esc_html__( 'Text watermarking requires FreeType Library.', 'watermark-reloaded' );
 
@@ -733,6 +791,16 @@ class Watermark_Reloaded_Admin extends Watermark_Reloaded {
 	 */
 	private function gd_exists() {
 		return extension_loaded( 'gd' ) || function_exists( 'gd_info' );
+	}
+
+	/**
+	 * Check if FreeType is supported within GD extension.
+	 *
+	 * @return bool
+	 */
+	private function has_freetype() {
+		$gd_info = gd_info();
+		return (bool) $gd_info['FreeType Support'];
 	}
 
 	/**

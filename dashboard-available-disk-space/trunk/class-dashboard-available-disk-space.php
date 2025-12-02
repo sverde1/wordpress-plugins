@@ -124,7 +124,15 @@ class Dashboard_Available_Disk_Space {
 				<div class="dads-bar__fill" style="background: <?php echo esc_attr( $fill_color ); ?>; width: <?php echo esc_attr( $percent_for_width ); ?>%;"></div>
 			</div>
 			<div class="dads-meta">
-				<div title="<?php esc_attr_e( '(used / free) total space available', 'dashboard-available-disk-space' ); ?>">
+				<?php
+				$title = array(
+					__( 'Space available', 'dashboard-available-disk-space' ),
+					'(' . __( 'used', 'dashboard-available-disk-space' ) . ' / ' . __( 'free', 'dashboard-available-disk-space' ) . ')',
+					__( 'total', 'dashboard-available-disk-space' ),
+				);
+				$title = implode( ' ', $title );
+				?>
+				<div title="<?php echo esc_attr( $title ); ?>">
 					<strong><?php echo esc_html( $stats['used_readable'] ); ?></strong>
 					<?php esc_html_e( 'used', 'dashboard-available-disk-space' ); ?> /
 					<strong><?php echo esc_html( $stats['free_readable'] ); ?></strong>

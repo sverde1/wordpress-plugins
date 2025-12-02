@@ -1,0 +1,70 @@
+# Copyright (C) 2025 Sandi Verdev
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Dashboard: Available Disk Space 1.1.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/dashboard-available-disk-space\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-12-02T09:47:07+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: dashboard-available-disk-space\n"
+
+#. Plugin Name of the plugin
+#: dashboard-available-disk-space.php
+msgid "Dashboard: Available Disk Space"
+msgstr ""
+
+#. Description of the plugin
+#: dashboard-available-disk-space.php
+msgid "Show remaining server disk space directly in the “At a Glance” dashboard widget with a progress bar and warning when storage is low."
+msgstr ""
+
+#. Author of the plugin
+#: dashboard-available-disk-space.php
+msgid "Sandi Verdev"
+msgstr ""
+
+#. Author URI of the plugin
+#: dashboard-available-disk-space.php
+msgid "http://eAppz.eu/"
+msgstr ""
+
+#: class-dashboard-available-disk-space.php:53
+msgid "Donate"
+msgstr ""
+
+#: class-dashboard-available-disk-space.php:93
+msgid "Available Storage Space"
+msgstr ""
+
+#: class-dashboard-available-disk-space.php:95
+msgid "Manage Uploads"
+msgstr ""
+
+#: class-dashboard-available-disk-space.php:129
+msgid "Space available"
+msgstr ""
+
+#: class-dashboard-available-disk-space.php:130
+#: class-dashboard-available-disk-space.php:137
+msgid "used"
+msgstr ""
+
+#: class-dashboard-available-disk-space.php:130
+#: class-dashboard-available-disk-space.php:139
+msgid "free"
+msgstr ""
+
+#: class-dashboard-available-disk-space.php:131
+#: class-dashboard-available-disk-space.php:142
+msgid "total"
+msgstr ""
+
+#: class-dashboard-available-disk-space.php:156
+msgid "Disk space information is unavailable."
+msgstr ""
